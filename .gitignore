@@ -1,0 +1,35 @@
+# Visual Studio / .NET
+*.suo
+*.user
+*.userosscache
+*.sln.DotSettings.user
+*.DotSettings.user
+.vs/
+.vscode/
+.idea/
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+*.tlg
+*.etl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Keep README
+!README.md

@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:8080"
+      - "5059:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MySQL=Server=mysql;Port=3306;Database=cmsorg;Uid=cmsorg;Pwd=cmsorg_pass;
@@ -26,7 +26,7 @@ services:
       MYSQL_USER: cmsorg
       MYSQL_PASSWORD: cmsorg_pass
     ports:
-      - "3306:3306"
+      - "33064:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -42,7 +42,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: cmsorg_pass
       MONGO_INITDB_DATABASE: cmsorg
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongo_data:/data/db
     healthcheck:
@@ -55,7 +55,7 @@ services:
     image: redis:7
     restart: always
     ports:
-      - "6379:6379"
+      - "6382:6379"
     volumes:
       - redis_data:/data
     healthcheck:
