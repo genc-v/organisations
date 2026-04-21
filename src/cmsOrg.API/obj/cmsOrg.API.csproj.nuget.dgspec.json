@@ -1,0 +1,276 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj": {}
+  },
+  "projects": {
+    "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj",
+        "projectName": "cmsOrg.API",
+        "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj",
+        "packagesPath": "/home/roses/.nuget/packages/",
+        "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roses/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj": {
+                "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.21, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.21, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj",
+        "projectName": "cmsOrg.Application",
+        "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj",
+        "packagesPath": "/home/roses/.nuget/packages/",
+        "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roses/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj": {
+                "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
+        "projectName": "cmsOrg.Domain",
+        "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
+        "packagesPath": "/home/roses/.nuget/packages/",
+        "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roses/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj",
+        "projectName": "cmsOrg.Infrastructure",
+        "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj",
+        "packagesPath": "/home/roses/.nuget/packages/",
+        "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roses/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj": {
+                "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

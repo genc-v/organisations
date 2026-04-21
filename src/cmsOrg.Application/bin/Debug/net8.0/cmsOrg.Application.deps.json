@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "cmsOrg.Application/1.0.0": {
+        "dependencies": {
+          "cmsOrg.Domain": "1.0.0"
+        },
+        "runtime": {
+          "cmsOrg.Application.dll": {}
+        }
+      },
+      "cmsOrg.Domain/1.0.0": {
+        "runtime": {
+          "cmsOrg.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "cmsOrg.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "cmsOrg.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
