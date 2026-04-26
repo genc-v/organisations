@@ -15,3 +15,4 @@
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/bin/Debug/net8.0/cmsOrg.Application.pdb
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/bin/Debug/net8.0/cmsOrg.Domain.pdb
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/obj/Debug/net8.0/cmsOrg.Infrastructure.csproj.CopyComplete
+/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/obj/Debug/net8.0/cmsOrg.Infrastructure.sourcelink.json

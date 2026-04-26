@@ -1,8 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace cmsOrg.Application.DTO;
 
 public class AssignUserRoleDTO
 {
-    public required Guid UserId { get; set; }
-    public required Guid OrganisationId { get; set; }
-    public required Guid RoleId { get; set; }
+    public Guid UserId { get; set; }
+    public string RoleTemplate { get; set; } = "Viewer"; // Viewer, Editor, Admin
+    [JsonIgnore] public Guid OrganisationId { get; set; }
 }

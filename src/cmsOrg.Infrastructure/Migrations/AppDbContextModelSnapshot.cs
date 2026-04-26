@@ -103,28 +103,30 @@ namespace cmsOrg.Infrastructure.Migrations
                     b.ToTable("OrganisationAssets");
                 });
 
-            modelBuilder.Entity("cmsOrg.Domain.Entities.OrganisationRole", b =>
+            modelBuilder.Entity("cmsOrg.Domain.Entities.Permission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("varchar(128)");
 
-                    b.Property<Guid>("OrganisationId")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.ToTable("OrganisationRoles");
+                    b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("cmsOrg.Domain.Entities.UserOrganisationRole", b =>
+            modelBuilder.Entity("cmsOrg.Domain.Entities.UserOrganisationPermission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,7 +135,7 @@ namespace cmsOrg.Infrastructure.Migrations
                     b.Property<Guid>("OrganisationId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("RoleId")
+                    b.Property<Guid>("PermissionId")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("UserId")
@@ -143,12 +145,12 @@ namespace cmsOrg.Infrastructure.Migrations
 
                     b.HasIndex("OrganisationId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("PermissionId");
 
-                    b.HasIndex("UserId", "OrganisationId", "RoleId")
+                    b.HasIndex("UserId", "OrganisationId")
                         .IsUnique();
 
-                    b.ToTable("UserOrganisationRoles");
+                    b.ToTable("UserOrganisationPermissions");
                 });
 
             modelBuilder.Entity("cmsOrg.Domain.Entities.OrganisationApiKey", b =>
@@ -173,34 +175,23 @@ namespace cmsOrg.Infrastructure.Migrations
                     b.Navigation("Organisation");
                 });
 
-            modelBuilder.Entity("cmsOrg.Domain.Entities.OrganisationRole", b =>
+            modelBuilder.Entity("cmsOrg.Domain.Entities.UserOrganisationPermission", b =>
                 {
                     b.HasOne("cmsOrg.Domain.Entities.Organisation", "Organisation")
-                        .WithMany("Roles")
+                        .WithMany("UserPermissions")
                         .HasForeignKey("OrganisationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Organisation");
-                });
-
-            modelBuilder.Entity("cmsOrg.Domain.Entities.UserOrganisationRole", b =>
-                {
-                    b.HasOne("cmsOrg.Domain.Entities.Organisation", "Organisation")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("OrganisationId")
+                    b.HasOne("cmsOrg.Domain.Entities.Permission", "Permission")
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("cmsOrg.Domain.Entities.OrganisationRole", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Organisation");
 
-                    b.Navigation("Role");
+                    b.Navigation("Permission");
                 });
 
             modelBuilder.Entity("cmsOrg.Domain.Entities.Organisation", b =>
@@ -209,14 +200,12 @@ namespace cmsOrg.Infrastructure.Migrations
 
                     b.Navigation("Assets");
 
-                    b.Navigation("Roles");
-
-                    b.Navigation("UserRoles");
+                    b.Navigation("UserPermissions");
                 });
 
-            modelBuilder.Entity("cmsOrg.Domain.Entities.OrganisationRole", b =>
+            modelBuilder.Entity("cmsOrg.Domain.Entities.Permission", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("UserPermissions");
                 });
 #pragma warning restore 612, 618
         }

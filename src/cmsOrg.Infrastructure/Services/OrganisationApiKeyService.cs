@@ -49,8 +49,6 @@ public class OrganisationApiKeyService(AppDbContext db, MongoDbContext mongo, IH
 
     public async Task<OrganisationApiKeyDTO> Create(Guid organisationId, CreateOrganisationApiKeyDTO dto)
     {
-        if (!await db.Organisations.AnyAsync(o => o.Id == organisationId))
-            throw AppException.NotFound("Organisation not found.");
 
         var key = new OrganisationApiKey
         {
@@ -67,24 +65,25 @@ public class OrganisationApiKeyService(AppDbContext db, MongoDbContext mongo, IH
         return new OrganisationApiKeyDTO { Id = key.Id, OrganisationId = key.OrganisationId, Key = key.Key, CreatedAt = key.CreatedAt, ExpiresAt = key.ExpiresAt, IsActive = key.IsActive };
     }
 
-    public async Task Toggle(Guid id)
+    public async Task Toggle(Guid organisationId, Guid id)
     {
-        var key = await db.OrganisationApiKeys.FindAsync(id)
+        var key = await db.OrganisationApiKeys
+            .FirstOrDefaultAsync(k => k.Id == id && k.OrganisationId == organisationId)
             ?? throw AppException.NotFound("API key not found.");
 
         key.IsActive = !key.IsActive;
         await db.SaveChangesAsync();
-        WriteLog(key.IsActive ? "ActivateApiKey" : "DeactivateApiKey", key.OrganisationId.ToString(), id.ToString());
+        WriteLog(key.IsActive ? "ActivateApiKey" : "DeactivateApiKey", organisationId.ToString(), id.ToString());
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(Guid organisationId, Guid id)
     {
-        var key = await db.OrganisationApiKeys.FindAsync(id)
+        var key = await db.OrganisationApiKeys
+            .FirstOrDefaultAsync(k => k.Id == id && k.OrganisationId == organisationId)
             ?? throw AppException.NotFound("API key not found.");
 
-        var organisationId = key.OrganisationId.ToString();
         db.OrganisationApiKeys.Remove(key);
         await db.SaveChangesAsync();
-        WriteLog("DeleteOrganisationApiKey", organisationId, id.ToString());
+        WriteLog("DeleteOrganisationApiKey", organisationId.ToString(), id.ToString());
     }
 }

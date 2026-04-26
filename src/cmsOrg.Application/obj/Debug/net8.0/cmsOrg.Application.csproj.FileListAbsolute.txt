@@ -13,3 +13,4 @@
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Application/bin/Debug/net8.0/cmsOrg.Domain.pdb
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Application/obj/Debug/net8.0/cmsOrg.Application.csproj.AssemblyReference.cache
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Application/obj/Debug/net8.0/cmsOrg.Application.csproj.CopyComplete
+/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/obj/Debug/net8.0/cmsOrg.Application.sourcelink.json

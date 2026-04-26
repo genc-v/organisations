@@ -81,7 +81,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services.AddScoped<IOrganisationService, OrganisationService>();
-builder.Services.AddScoped<IOrganisationRoleService, OrganisationRoleService>();
+builder.Services.AddScoped<IAccessControlService, AccessControlService>();
 builder.Services.AddScoped<IUserOrganisationRoleService, UserOrganisationRoleService>();
 builder.Services.AddScoped<IOrganisationAssetService, OrganisationAssetService>();
 builder.Services.AddScoped<IOrganisationApiKeyService, OrganisationApiKeyService>();
@@ -99,6 +99,14 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseMiddleware<JwtValidationMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await context.Database.MigrateAsync();
+    await DbInitializer.Seed(app.Services);
+}
+
 app.MapControllers();
 
 app.Run();

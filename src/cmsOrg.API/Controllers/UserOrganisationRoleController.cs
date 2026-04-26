@@ -8,20 +8,36 @@ namespace cmsOrg.API.Controllers;
 [ApiController]
 [Route("organisations/{organisationId:guid}/members")]
 [Authorize]
-public class UserOrganisationRoleController(IUserOrganisationRoleService service) : ControllerBase
+public class UserOrganisationRoleController(IUserOrganisationRoleService service, IOrganisationService organisationService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAll(Guid organisationId)
-        => Ok(await service.GetByOrganisation(organisationId));
+    {
+        await organisationService.CheckAccess(organisationId, "Viewer");
+        return Ok(await service.GetByOrganisation(organisationId));
+    }
 
     [HttpPost]
     public async Task<IActionResult> Assign(Guid organisationId, [FromBody] AssignUserRoleDTO dto)
-        => Ok(await service.Assign(dto));
+    {
+        await organisationService.CheckAccess(organisationId, "Admin");
+        dto.OrganisationId = organisationId;
+        return Ok(await service.Assign(dto));
+    }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Remove(Guid organisationId, Guid id)
     {
-        await service.Remove(id);
+        await organisationService.CheckAccess(organisationId, "Admin");
+        await service.Remove(organisationId, id);
+        return NoContent();
+    }
+
+    [HttpPut("{id:guid}/role")]
+    public async Task<IActionResult> UpdateRole(Guid organisationId, Guid id, [FromBody] string roleName)
+    {
+        await organisationService.CheckAccess(organisationId, "Admin");
+        await service.UpdateRole(organisationId, id, roleName);
         return NoContent();
     }
 }

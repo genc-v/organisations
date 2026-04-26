@@ -10,4 +10,6 @@ public interface IOrganisationService
     Task<OrganisationDTO> Create(CreateOrganisationDTO dto);
     Task Update(Guid id, UpdateOrganisationDTO dto);
     Task Delete(Guid id);
+    Task<string> CheckAccess(Guid organisationId, string roleRequired);
+    Task<string?> GetMyRole(Guid organisationId);
 }

@@ -22,22 +22,21 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
             UserId = UserId,
             OrganisationId = organisationId,
             Action = action,
-            ResourceType = "UserOrganisationRole",
+            ResourceType = "UserOrganisationPermission",
             ResourceId = resourceId
         });
 
     public async Task<List<UserOrganisationRoleDTO>> GetByOrganisation(Guid organisationId)
     {
-        var result = await db.UserOrganisationRoles
+        var result = await db.UserOrganisationPermissions
             .Where(u => u.OrganisationId == organisationId)
-            .Include(u => u.Role)
+            .Include(u => u.Permission)
             .Select(u => new UserOrganisationRoleDTO
             {
                 Id = u.Id,
                 UserId = u.UserId,
                 OrganisationId = u.OrganisationId,
-                RoleId = u.RoleId,
-                RoleName = u.Role.Name
+                Role = u.Permission.Name
             })
             .ToListAsync();
 
@@ -50,42 +49,54 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
         if (!await db.Organisations.AnyAsync(o => o.Id == dto.OrganisationId))
             throw AppException.NotFound("Organisation not found.");
 
-        if (!await db.OrganisationRoles.AnyAsync(r => r.Id == dto.RoleId && r.OrganisationId == dto.OrganisationId))
-            throw AppException.NotFound("Role not found in this organisation.");
+        if (await db.UserOrganisationPermissions.AnyAsync(u => u.UserId == dto.UserId && u.OrganisationId == dto.OrganisationId))
+            throw AppException.Conflict("User already has a role in this organisation.");
 
-        if (await db.UserOrganisationRoles.AnyAsync(u => u.UserId == dto.UserId && u.OrganisationId == dto.OrganisationId && u.RoleId == dto.RoleId))
-            throw AppException.Conflict("User already has this role in the organisation.");
+        var permission = await db.Permissions.FirstOrDefaultAsync(p => p.Name == dto.RoleTemplate)
+            ?? await db.Permissions.FirstAsync(p => p.Name == "Viewer");
 
-        var entry = new UserOrganisationRole
+        var entry = new UserOrganisationPermission
         {
             Id = Guid.NewGuid(),
             UserId = dto.UserId,
             OrganisationId = dto.OrganisationId,
-            RoleId = dto.RoleId
+            PermissionId = permission.Id
         };
-        db.UserOrganisationRoles.Add(entry);
+        db.UserOrganisationPermissions.Add(entry);
         await db.SaveChangesAsync();
         WriteLog("AssignUserRole", dto.OrganisationId.ToString(), entry.Id.ToString());
 
-        var role = await db.OrganisationRoles.FindAsync(dto.RoleId);
         return new UserOrganisationRoleDTO
         {
             Id = entry.Id,
             UserId = entry.UserId,
             OrganisationId = entry.OrganisationId,
-            RoleId = entry.RoleId,
-            RoleName = role!.Name
+            Role = permission.Name
         };
     }
 
-    public async Task Remove(Guid id)
+    public async Task Remove(Guid organisationId, Guid id)
     {
-        var entry = await db.UserOrganisationRoles.FindAsync(id)
-            ?? throw AppException.NotFound("User organisation role not found.");
+        var entry = await db.UserOrganisationPermissions
+            .FirstOrDefaultAsync(u => u.Id == id && u.OrganisationId == organisationId)
+            ?? throw AppException.NotFound("User organisation permission not found.");
 
-        var organisationId = entry.OrganisationId.ToString();
-        db.UserOrganisationRoles.Remove(entry);
+        db.UserOrganisationPermissions.Remove(entry);
         await db.SaveChangesAsync();
-        WriteLog("RemoveUserRole", organisationId, id.ToString());
+        WriteLog("RemoveUserRole", organisationId.ToString(), id.ToString());
+    }
+
+    public async Task UpdateRole(Guid organisationId, Guid id, string roleName)
+    {
+        var entry = await db.UserOrganisationPermissions
+            .FirstOrDefaultAsync(u => u.Id == id && u.OrganisationId == organisationId)
+            ?? throw AppException.NotFound("User organisation permission not found.");
+
+        var permission = await db.Permissions.FirstOrDefaultAsync(p => p.Name == roleName)
+            ?? throw AppException.NotFound($"Role '{roleName}' not found.");
+
+        entry.PermissionId = permission.Id;
+        await db.SaveChangesAsync();
+        WriteLog("UpdateUserRole", organisationId.ToString(), id.ToString());
     }
 }

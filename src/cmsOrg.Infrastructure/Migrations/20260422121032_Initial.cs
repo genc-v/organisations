@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace cmsOrg.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,22 @@ namespace cmsOrg.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Organisations", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Permissions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permissions", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -78,48 +94,27 @@ namespace cmsOrg.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrganisationRoles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    OrganisationId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganisationRoles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganisationRoles_Organisations_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Organisations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UserOrganisationRoles",
+                name: "UserOrganisationPermissions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     OrganisationId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    RoleId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    PermissionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserOrganisationRoles", x => x.Id);
+                    table.PrimaryKey("PK_UserOrganisationPermissions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserOrganisationRoles_OrganisationRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "OrganisationRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserOrganisationRoles_Organisations_OrganisationId",
+                        name: "FK_UserOrganisationPermissions_Organisations_OrganisationId",
                         column: x => x.OrganisationId,
                         principalTable: "Organisations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOrganisationPermissions_Permissions_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -142,24 +137,25 @@ namespace cmsOrg.Infrastructure.Migrations
                 column: "OrganisationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganisationRoles_OrganisationId",
-                table: "OrganisationRoles",
+                name: "IX_Permissions_Name",
+                table: "Permissions",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOrganisationPermissions_OrganisationId",
+                table: "UserOrganisationPermissions",
                 column: "OrganisationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOrganisationRoles_OrganisationId",
-                table: "UserOrganisationRoles",
-                column: "OrganisationId");
+                name: "IX_UserOrganisationPermissions_PermissionId",
+                table: "UserOrganisationPermissions",
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOrganisationRoles_RoleId",
-                table: "UserOrganisationRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserOrganisationRoles_UserId_OrganisationId_RoleId",
-                table: "UserOrganisationRoles",
-                columns: new[] { "UserId", "OrganisationId", "RoleId" },
+                name: "IX_UserOrganisationPermissions_UserId_OrganisationId",
+                table: "UserOrganisationPermissions",
+                columns: new[] { "UserId", "OrganisationId" },
                 unique: true);
         }
 
@@ -173,13 +169,13 @@ namespace cmsOrg.Infrastructure.Migrations
                 name: "OrganisationAssets");
 
             migrationBuilder.DropTable(
-                name: "UserOrganisationRoles");
-
-            migrationBuilder.DropTable(
-                name: "OrganisationRoles");
+                name: "UserOrganisationPermissions");
 
             migrationBuilder.DropTable(
                 name: "Organisations");
+
+            migrationBuilder.DropTable(
+                name: "Permissions");
         }
     }
 }

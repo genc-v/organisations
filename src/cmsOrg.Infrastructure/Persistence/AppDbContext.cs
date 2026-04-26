@@ -6,8 +6,8 @@ namespace cmsOrg.Infrastructure.Persistence;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Organisation> Organisations => Set<Organisation>();
-    public DbSet<OrganisationRole> OrganisationRoles => Set<OrganisationRole>();
-    public DbSet<UserOrganisationRole> UserOrganisationRoles => Set<UserOrganisationRole>();
+    public DbSet<Permission> Permissions => Set<Permission>();
+    public DbSet<UserOrganisationPermission> UserOrganisationPermissions => Set<UserOrganisationPermission>();
     public DbSet<OrganisationAsset> OrganisationAssets => Set<OrganisationAsset>();
     public DbSet<OrganisationApiKey> OrganisationApiKeys => Set<OrganisationApiKey>();
 
@@ -19,28 +19,28 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.Property(x => x.Name).IsRequired().HasMaxLength(256);
         });
 
-        modelBuilder.Entity<OrganisationRole>(e =>
+        modelBuilder.Entity<Permission>(e =>
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Name).IsRequired().HasMaxLength(128);
-            e.HasOne(x => x.Organisation)
-                .WithMany(x => x.Roles)
-                .HasForeignKey(x => x.OrganisationId)
-                .OnDelete(DeleteBehavior.Cascade);
+            e.HasIndex(x => x.Name).IsUnique();
         });
 
-        modelBuilder.Entity<UserOrganisationRole>(e =>
+        modelBuilder.Entity<UserOrganisationPermission>(e =>
         {
             e.HasKey(x => x.Id);
-            e.HasIndex(x => new { x.UserId, x.OrganisationId, x.RoleId }).IsUnique();
+            // Ensuring one user has only one permission per organisation
+            e.HasIndex(x => new { x.UserId, x.OrganisationId }).IsUnique();
+            
             e.HasOne(x => x.Organisation)
-                .WithMany(x => x.UserRoles)
+                .WithMany(x => x.UserPermissions)
                 .HasForeignKey(x => x.OrganisationId)
                 .OnDelete(DeleteBehavior.Cascade);
-            e.HasOne(x => x.Role)
-                .WithMany(x => x.UserRoles)
-                .HasForeignKey(x => x.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
+
+            e.HasOne(x => x.Permission)
+                .WithMany(x => x.UserPermissions)
+                .HasForeignKey(x => x.PermissionId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<OrganisationAsset>(e =>

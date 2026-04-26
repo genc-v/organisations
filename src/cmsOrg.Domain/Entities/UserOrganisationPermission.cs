@@ -1,11 +1,12 @@
 namespace cmsOrg.Domain.Entities;
 
-public class OrganisationRole
+public class UserOrganisationPermission
 {
     public Guid Id { get; set; }
+    public Guid UserId { get; set; }
     public Guid OrganisationId { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public Guid PermissionId { get; set; }
 
     public Organisation Organisation { get; set; } = null!;
-    public ICollection<UserOrganisationRole> UserRoles { get; set; } = [];
+    public Permission Permission { get; set; } = null!;
 }

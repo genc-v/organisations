@@ -12,11 +12,20 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace cmsOrg.Infrastructure.Services;
 
-public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpContextAccessor http, IDistributedCache cache) : IOrganisationService
+public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpContextAccessor http, IDistributedCache cache, IAccessControlService accessControl) : IOrganisationService
 {
-    private string UserId => http.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                          ?? http.HttpContext?.User.FindFirst("sub")?.Value
-                          ?? string.Empty;
+    private Guid? CurrentUserId
+    {
+        get
+        {
+            var value = http.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                     ?? http.HttpContext?.User.FindFirst("sub")?.Value;
+
+            return Guid.TryParse(value, out var id) ? id : null;
+        }
+    }
+
+    private string UserId => CurrentUserId?.ToString() ?? string.Empty;
 
     private void WriteLog(string action, string? resourceId = null, string? organisationId = null) =>
         _ = mongo.Logs.InsertOneAsync(new Log
@@ -30,7 +39,10 @@ public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpCon
 
     public async Task<PaginatedResult<OrganisationDTO>> GetAll(int page, int pageSize, string? search)
     {
-        var query = db.Organisations.AsQueryable();
+        var userId = CurrentUserId ?? throw AppException.Unauthorized("User is not authenticated.");
+
+        var query = db.Organisations
+            .Where(o => db.UserOrganisationPermissions.Any(uop => uop.OrganisationId == o.Id && uop.UserId == userId));
 
         if (!string.IsNullOrWhiteSpace(search))
             query = query.Where(o => o.Name.Contains(search));
@@ -67,11 +79,24 @@ public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpCon
 
     public async Task<OrganisationDTO> Create(CreateOrganisationDTO dto)
     {
-        if (await db.Organisations.AnyAsync(o => o.Name == dto.Name))
+        var userId = CurrentUserId ?? throw AppException.Unauthorized("User is not authenticated.");
+
+        if (await db.Organisations.AnyAsync(o => o.Name == dto.Name &&
+                db.UserOrganisationPermissions.Any(uop => uop.OrganisationId == o.Id && uop.UserId == userId)))
             throw AppException.Conflict($"Organisation '{dto.Name}' already exists.");
 
         var org = new Organisation { Id = Guid.NewGuid(), Name = dto.Name };
         db.Organisations.Add(org);
+
+        var adminPermission = await db.Permissions.FirstAsync(p => p.Name == "Admin");
+        db.UserOrganisationPermissions.Add(new UserOrganisationPermission
+        {
+            Id = Guid.NewGuid(),
+            UserId = userId,
+            OrganisationId = org.Id,
+            PermissionId = adminPermission.Id
+        });
+
         await db.SaveChangesAsync();
         WriteLog("CreateOrganisation", org.Id.ToString(), org.Id.ToString());
 
@@ -80,8 +105,14 @@ public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpCon
 
     public async Task Update(Guid id, UpdateOrganisationDTO dto)
     {
+        var userId = CurrentUserId ?? throw AppException.Unauthorized("User is not authenticated.");
+
         var org = await db.Organisations.FindAsync(id)
             ?? throw AppException.NotFound("Organisation not found.");
+
+        if (await db.Organisations.AnyAsync(o => o.Name == dto.Name && o.Id != id &&
+                db.UserOrganisationPermissions.Any(uop => uop.OrganisationId == o.Id && uop.UserId == userId)))
+            throw AppException.Conflict($"Organisation '{dto.Name}' already exists.");
 
         org.Name = dto.Name;
         await db.SaveChangesAsync();
@@ -98,5 +129,32 @@ public class OrganisationService(AppDbContext db, MongoDbContext mongo, IHttpCon
         await db.SaveChangesAsync();
         await cache.RemoveAsync($"organisation:{id}");
         WriteLog("DeleteOrganisation", id.ToString(), id.ToString());
+    }
+
+    public async Task<string> CheckAccess(Guid organisationId, string roleRequired)
+    {
+        var userId = CurrentUserId ?? throw AppException.Unauthorized("User is not authenticated.");
+        await accessControl.CheckAccess(userId, organisationId, roleRequired);
+        WriteLog("CheckAccess", roleRequired, organisationId.ToString());
+
+        return await db.UserOrganisationPermissions
+            .Include(uop => uop.Permission)
+            .Where(uop => uop.UserId == userId && uop.OrganisationId == organisationId)
+            .Select(uop => uop.Permission.Name)
+            .FirstAsync();
+    }
+
+    public async Task<string?> GetMyRole(Guid organisationId)
+    {
+        var userId = CurrentUserId ?? throw AppException.Unauthorized("User is not authenticated.");
+
+        var role = await db.UserOrganisationPermissions
+            .Include(uop => uop.Permission)
+            .Where(uop => uop.UserId == userId && uop.OrganisationId == organisationId)
+            .Select(uop => uop.Permission.Name)
+            .FirstOrDefaultAsync();
+
+        WriteLog("GetMyRole", organisationId.ToString(), organisationId.ToString());
+        return role;
     }
 }
