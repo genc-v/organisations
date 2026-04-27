@@ -83,7 +83,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 builder.Services.AddScoped<IOrganisationService, OrganisationService>();
 builder.Services.AddScoped<IAccessControlService, AccessControlService>();
 builder.Services.AddScoped<IUserOrganisationRoleService, UserOrganisationRoleService>();
-builder.Services.AddScoped<IOrganisationAssetService, OrganisationAssetService>();
 builder.Services.AddScoped<IOrganisationApiKeyService, OrganisationApiKeyService>();
 
 var app = builder.Build();

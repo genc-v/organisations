@@ -8,8 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Organisation> Organisations => Set<Organisation>();
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<UserOrganisationPermission> UserOrganisationPermissions => Set<UserOrganisationPermission>();
-    public DbSet<OrganisationAsset> OrganisationAssets => Set<OrganisationAsset>();
-    public DbSet<OrganisationApiKey> OrganisationApiKeys => Set<OrganisationApiKey>();
+public DbSet<OrganisationApiKey> OrganisationApiKeys => Set<OrganisationApiKey>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,17 +39,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.HasOne(x => x.Permission)
                 .WithMany(x => x.UserPermissions)
                 .HasForeignKey(x => x.PermissionId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
-        modelBuilder.Entity<OrganisationAsset>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.Property(x => x.Name).IsRequired().HasMaxLength(256);
-            e.Property(x => x.Type).IsRequired().HasMaxLength(64);
-            e.HasOne(x => x.Organisation)
-                .WithMany(x => x.Assets)
-                .HasForeignKey(x => x.OrganisationId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
 

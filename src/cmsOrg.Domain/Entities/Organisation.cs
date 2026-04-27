@@ -7,6 +7,5 @@ public class Organisation
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<UserOrganisationPermission> UserPermissions { get; set; } = [];
-    public ICollection<OrganisationAsset> Assets { get; set; } = [];
-    public ICollection<OrganisationApiKey> ApiKeys { get; set; } = [];
+public ICollection<OrganisationApiKey> ApiKeys { get; set; } = [];
 }
