@@ -1,0 +1,31 @@
+name: CI/CD - CMS Organisations
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t cmsorganisations:latest \
+            -f Dockerfile \
+            .
+
+      - name: Import Docker Image
+        run: |
+           docker save cmsorganisations:latest | sudo ctr -n k8s.io images import -
+
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f kubernetes/deploy.yaml
