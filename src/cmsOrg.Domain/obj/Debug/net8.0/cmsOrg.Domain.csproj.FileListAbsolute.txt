@@ -10,3 +10,15 @@
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.pdb
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/obj/Debug/net8.0/ref/cmsOrg.Domain.dll
 /home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.sourcelink.json
+/home/roses/random/organisations/src/cmsOrg.Domain/bin/Debug/net8.0/cmsOrg.Domain.deps.json
+/home/roses/random/organisations/src/cmsOrg.Domain/bin/Debug/net8.0/cmsOrg.Domain.dll
+/home/roses/random/organisations/src/cmsOrg.Domain/bin/Debug/net8.0/cmsOrg.Domain.pdb
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.AssemblyInfoInputs.cache
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.AssemblyInfo.cs
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.csproj.CoreCompileInputs.cache
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.sourcelink.json
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.dll
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/refint/cmsOrg.Domain.dll
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/cmsOrg.Domain.pdb
+/home/roses/random/organisations/src/cmsOrg.Domain/obj/Debug/net8.0/ref/cmsOrg.Domain.dll

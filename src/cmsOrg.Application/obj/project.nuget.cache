@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AmKtNVsVYYlDGn8Lx9QQWP8NugVm5SCyEByb/sQoaour61it909q4yBA0kijViinasugjDuYh3BgiYiLnKAwsA==",
+  "dgSpecHash": "XUwapFDml2tolmNWwU53K+uBUek1H3DA5fi6CYbPjILAwmh0nHGS8gGKndqbSHMsr6ztmcrjdqohgr7jqewQ1w==",
   "success": true,
-  "projectFilePath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Application/cmsOrg.Application.csproj",
+  "projectFilePath": "/home/roses/random/organisations/src/cmsOrg.Application/cmsOrg.Application.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

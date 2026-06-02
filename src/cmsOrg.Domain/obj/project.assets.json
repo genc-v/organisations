@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
+      "projectUniqueName": "/home/roses/random/organisations/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
       "projectName": "cmsOrg.Domain",
-      "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
+      "projectPath": "/home/roses/random/organisations/src/cmsOrg.Domain/cmsOrg.Domain.csproj",
       "packagesPath": "/home/roses/.nuget/packages/",
-      "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Domain/obj/",
+      "outputPath": "/home/roses/random/organisations/src/cmsOrg.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/roses/.nuget/NuGet/NuGet.Config"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.127/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

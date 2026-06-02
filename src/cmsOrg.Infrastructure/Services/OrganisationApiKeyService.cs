@@ -27,6 +27,17 @@ public class OrganisationApiKeyService(AppDbContext db, MongoDbContext mongo, IH
             ResourceId = resourceId
         });
 
+    public async Task<ValidateApiKeyResultDTO> Validate(string key)
+    {
+        var apiKey = await db.OrganisationApiKeys
+            .AsNoTracking()
+            .FirstOrDefaultAsync(k => k.Key == key && k.IsActive
+                && (k.ExpiresAt == null || k.ExpiresAt > DateTime.UtcNow))
+            ?? throw AppException.Unauthorized("Invalid API key.");
+
+        return new ValidateApiKeyResultDTO { OrganisationId = apiKey.OrganisationId };
+    }
+
     public async Task<List<OrganisationApiKeyDTO>> GetByOrganisation(Guid organisationId)
     {
         var result = await db.OrganisationApiKeys

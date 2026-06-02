@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gYeDtXajn1a/k5AQRxTBsGmAzUwOEe40JME6PzhtSvXke7JR6bRVQfHUWBXVUP4ZZRU8eKZZEeSjleN5cfUjvw==",
+  "dgSpecHash": "ps7Tg/lESV8rAbbHlbCPcM9myck67RWeSCjg7vVcOl2QPp196g4CsTWy5Oz09YF71bdxIJQ15aO0XPqEimCHYg==",
   "success": true,
-  "projectFilePath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj",
+  "projectFilePath": "/home/roses/random/organisations/src/cmsOrg.API/cmsOrg.API.csproj",
   "expectedPackageFiles": [
     "/home/roses/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
     "/home/roses/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

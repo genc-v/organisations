@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bMGbm18LW371Qh99CX2ZXKv+zfKT7sPLde6aS/p+V6gi7RuumkPxgaxCz1q15X69kdJKcV+6jVavwl+X/xox9Q==",
+  "dgSpecHash": "pg8479eJ14ZMUUtO4KfvtqYM+H0f+4qsA/LGt1MWp5odRo9c3MwLReeVSVWCh3+zIhKDeSUyDgG601VizeOxmA==",
   "success": true,
-  "projectFilePath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj",
+  "projectFilePath": "/home/roses/random/organisations/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/home/roses/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
     "/home/roses/.nuget/packages/microsoft.entityframeworkcore/8.0.22/microsoft.entityframeworkcore.8.0.22.nupkg.sha512",

@@ -3586,11 +3586,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj",
+      "projectUniqueName": "/home/roses/random/organisations/src/cmsOrg.API/cmsOrg.API.csproj",
       "projectName": "cmsOrg.API",
-      "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/cmsOrg.API.csproj",
+      "projectPath": "/home/roses/random/organisations/src/cmsOrg.API/cmsOrg.API.csproj",
       "packagesPath": "/home/roses/.nuget/packages/",
-      "outputPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.API/obj/",
+      "outputPath": "/home/roses/random/organisations/src/cmsOrg.API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/roses/.nuget/NuGet/NuGet.Config"
@@ -3605,8 +3605,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj": {
-              "projectPath": "/home/roses/random/cms/cmsOrg/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj"
+            "/home/roses/random/organisations/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj": {
+              "projectPath": "/home/roses/random/organisations/src/cmsOrg.Infrastructure/cmsOrg.Infrastructure.csproj"
             }
           }
         }
@@ -3663,7 +3663,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.127/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
