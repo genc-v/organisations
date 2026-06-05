@@ -78,7 +78,7 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
     public async Task Remove(Guid organisationId, Guid id)
     {
         var entry = await db.UserOrganisationPermissions
-            .FirstOrDefaultAsync(u => u.Id == id && u.OrganisationId == organisationId)
+            .FirstOrDefaultAsync(u => u.UserId == id && u.OrganisationId == organisationId)
             ?? throw AppException.NotFound("User organisation permission not found.");
 
         db.UserOrganisationPermissions.Remove(entry);
@@ -89,7 +89,7 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
     public async Task UpdateRole(Guid organisationId, Guid id, string roleName)
     {
         var entry = await db.UserOrganisationPermissions
-            .FirstOrDefaultAsync(u => u.Id == id && u.OrganisationId == organisationId)
+            .FirstOrDefaultAsync(u => u.UserId == id && u.OrganisationId == organisationId)
             ?? throw AppException.NotFound("User organisation permission not found.");
 
         var permission = await db.Permissions.FirstOrDefaultAsync(p => p.Name == roleName)
