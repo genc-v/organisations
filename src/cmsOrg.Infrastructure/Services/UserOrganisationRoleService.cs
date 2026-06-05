@@ -26,11 +26,17 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
             ResourceId = resourceId
         });
 
-    public async Task<List<UserOrganisationRoleDTO>> GetByOrganisation(Guid organisationId)
+    public async Task<PaginatedResult<UserOrganisationRoleDTO>> GetByOrganisation(Guid organisationId, int page, int pageSize)
     {
-        var result = await db.UserOrganisationPermissions
+        var query = db.UserOrganisationPermissions
             .Where(u => u.OrganisationId == organisationId)
-            .Include(u => u.Permission)
+            .Include(u => u.Permission);
+
+        var total = await query.CountAsync();
+        var items = await query
+            .OrderBy(u => u.UserId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(u => new UserOrganisationRoleDTO
             {
                 Id = u.Id,
@@ -41,7 +47,7 @@ public class UserOrganisationRoleService(AppDbContext db, MongoDbContext mongo, 
             .ToListAsync();
 
         WriteLog("GetOrganisationMembers", organisationId.ToString());
-        return result;
+        return new PaginatedResult<UserOrganisationRoleDTO> { Items = items, TotalCount = total, PageNumber = page, PageSize = pageSize };
     }
 
     public async Task<UserOrganisationRoleDTO> Assign(AssignUserRoleDTO dto)

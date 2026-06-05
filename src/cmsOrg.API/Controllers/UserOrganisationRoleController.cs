@@ -11,10 +11,10 @@ namespace cmsOrg.API.Controllers;
 public class UserOrganisationRoleController(IUserOrganisationRoleService service, IOrganisationService organisationService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll(Guid organisationId)
+    public async Task<IActionResult> GetAll(Guid organisationId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
         await organisationService.CheckAccess(organisationId, "Viewer");
-        return Ok(await service.GetByOrganisation(organisationId));
+        return Ok(await service.GetByOrganisation(organisationId, page, pageSize));
     }
 
     [HttpPost]
