@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cmsOrg.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4eafd0663bebf5aee46a31c3dc9ca6f82091330")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77ca183986a0bdac78ebb9d082354d99166e2cea")]
 [assembly: System.Reflection.AssemblyProductAttribute("cmsOrg.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cmsOrg.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

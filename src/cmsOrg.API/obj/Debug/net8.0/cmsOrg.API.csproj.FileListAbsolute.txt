@@ -268,3 +268,12 @@
 /home/roses/random/organisations/src/cmsOrg.API/obj/Debug/net8.0/cmsOrg.API.pdb
 /home/roses/random/organisations/src/cmsOrg.API/obj/Debug/net8.0/cmsOrg.API.genruntimeconfig.cache
 /home/roses/random/organisations/src/cmsOrg.API/obj/Debug/net8.0/ref/cmsOrg.API.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/ClosedXML.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/ClosedXML.Parser.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/CsvHelper.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/DocumentFormat.OpenXml.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/DocumentFormat.OpenXml.Framework.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/ExcelNumberFormat.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/RBush.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/SixLabors.Fonts.dll
+/home/roses/random/organisations/src/cmsOrg.API/bin/Debug/net8.0/System.IO.Packaging.dll

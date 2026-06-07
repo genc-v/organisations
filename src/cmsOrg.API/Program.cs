@@ -84,6 +84,7 @@ builder.Services.AddScoped<IOrganisationService, OrganisationService>();
 builder.Services.AddScoped<IAccessControlService, AccessControlService>();
 builder.Services.AddScoped<IUserOrganisationRoleService, UserOrganisationRoleService>();
 builder.Services.AddScoped<IOrganisationApiKeyService, OrganisationApiKeyService>();
+builder.Services.AddScoped<IExportImportService, ExportImportService>();
 
 var app = builder.Build();
 
