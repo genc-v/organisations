@@ -12,7 +12,6 @@ public static class DbInitializer
         using var scope = serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-        // 1. Seed Permissions (Admin, Editor, Viewer)
         foreach (var p in Permission.DefaultPermissions)
         {
             if (!await context.Permissions.AnyAsync(x => x.Id == p.Id))
